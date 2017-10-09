@@ -8,7 +8,12 @@ var pg = require('pg');
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -36,8 +41,8 @@ app.get('/rss', function(request, response) {
     parsed.feed.entries.forEach(function(entry) {
       console.log(entry.title + ':' + entry.link);
     })
-    // response.end(JSON.stringify(parsed.feed.entries));
-    response.send(parsed.feed.entries);
+    response.end(JSON.stringify(parsed.feed.entries));
+    //response.send(parsed.feed.entries);
   })
   
 });
