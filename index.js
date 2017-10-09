@@ -1,6 +1,10 @@
+//https://github.com/leventeScheck88/node-js-getting-started/blob/master/index.js
+var parser = require('rss-parser');
 var express = require('express');
 var app = express();
 var pg = require('pg');
+
+
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -16,6 +20,25 @@ app.get('/', function(request, response) {
 
 app.get('/hello', function(request, response) {
   response.end(JSON.stringify(process.env));
+});
+
+app.get('/rss', function(request, response) {
+  //parser.parseURL('https://www.reddit.com/.rss', function(err, parsed) {
+    var options= {
+      customFields: {
+        feed: ['image', 'image'],
+        item: ['enclosure','enclosure'],
+      }
+    }
+  parser.parseURL('http://rss.stirileprotv.ro/', function(err, parsed) {
+    
+    console.log(parsed.feed.title);
+    parsed.feed.entries.forEach(function(entry) {
+      console.log(entry.title + ':' + entry.link);
+    })
+    response.end(JSON.stringify(parsed.feed.entries));
+  })
+  
 });
 
 

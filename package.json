@@ -11,9 +11,11 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "pg": "6.x",
     "ejs": "2.5.6",
-    "express": "4.15.2"
+    "express": "4.15.2",
+    "feedparser": "^2.2.1",
+    "pg": "6.x",
+    "rss-parser": "^2.10.6"
   },
   "devDependencies": {
     "request": "^2.81.0",
