@@ -36,7 +36,8 @@ app.get('/rss', function(request, response) {
     parsed.feed.entries.forEach(function(entry) {
       console.log(entry.title + ':' + entry.link);
     })
-    response.end(JSON.stringify(parsed.feed.entries));
+    // response.end(JSON.stringify(parsed.feed.entries));
+    response.send(parsed.feed.entries);
   })
   
 });
