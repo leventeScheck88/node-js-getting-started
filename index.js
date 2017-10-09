@@ -22,14 +22,16 @@ app.get('/hello', function(request, response) {
 
 app.get('/db', function (request, response) {
   var pool = new pg.Pool();
-  pool.connect(process.env.DATABASE_URL, function(err, client, done) {
+  //var url = process.env.DATABASE_URL || 'postgres://localhost';
+  var url = 'postgres://localhost';
+  pool.connect(url, function(err, client, done) {
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }
       else
        //{ response.render('pages/db', {results: result.rows} ); }
-       { response.end('pages/db', result.rows ); }
+       { response.end(JSON.stringify(result.rows) ); }
     });
   });
   pool.end()
